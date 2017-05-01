@@ -9,6 +9,7 @@ import { mark, measure } from '../util/perf'
 import { initLifecycle, callHook } from './lifecycle'
 import { initProvide, initInjections } from './inject'
 import { extend, mergeOptions, formatComponentName } from '../util/index'
+import { initFunctionalComponents } from './functional-components'
 
 let uid = 0
 
@@ -49,6 +50,7 @@ export function initMixin (Vue: Class<Component>) {
     }
     // expose real self
     vm._self = vm
+    initFunctionalComponents(vm)
     initLifecycle(vm)
     initEvents(vm)
     initRender(vm)
