@@ -29,6 +29,13 @@ export function initAssetRegisters (Vue: GlobalAPI) {
           definition.name = definition.name || id
           definition = this.options._base.extend(definition)
         }
+        if (type === 'component' && typeof definition === 'function' && definition.prototype.constructor.name !== 'VueComponent') {
+          definition = {
+            functional: true,
+            name: id,
+            render: definition
+          }
+        }
         if (type === 'directive' && typeof definition === 'function') {
           definition = { bind: definition, update: definition }
         }

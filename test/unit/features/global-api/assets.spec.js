@@ -31,6 +31,17 @@ describe('Global API: assets', () => {
       delete Vue.options.components.foo
       delete Vue.options.components.bar
     })
+    it('should register a functional component', () => {
+      Vue.component('foo', function(h, context) {
+        return h('span', 'foo')
+      })
+      const vm = new Vue({
+        template: '<div><foo></foo></div>'
+      }).$mount()
+      expect(vm.$el.innerHTML).toBe('<span>foo</span>')
+      // unregister them
+      delete Vue.options.components.foo
+    })
   })
 
   it('component on extended constructor', () => {
